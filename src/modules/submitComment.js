@@ -1,44 +1,64 @@
-import { involvmentApi, involvementApiKey } from './getApiData.js';
+const createComment = async (countryName) => {
+  try {
+    const response = await fetch(involvmentApiLikes, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify({
+          item_id: countryName,
+          username: '',
+          comment: ''
+      }),
+    });
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    return `Error creating Cooment: ${error}`;
+  }
+};
+
+
 
 const addComment = async (result) => {
   const countryName = result.id;
   const userName = result.parentElement.children[0].value;
   const usercomment = result.parentElement.children[1].value;
-
   try {
-    await fetch(`${involvmentApi}apps/${involvementApiKey}/comments`, {
+    const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/kM38kn2JqCtpujHZtAbZ/comments/`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
       },
       body: JSON.stringify({
         item_id: countryName,
         username: userName,
-        comment: usercomment,
-
+        comment: usercomment
       }),
     });
-    return 'Recived all data';
-  } catch (error) {
-    return `Adding comments error:${error}`;
-  }
-};
-
-const getcommentData = async (countryName) => {
-  let storeValue = 0;
-  try {
-    const response = await fetch(`${involvmentApi}apps/${involvementApiKey}/likes`);
     const data = await response.json();
 
-    data.forEach((value) => {
-      if (countryName === value.item_id) {
-        storeValue = value.likes;
-      }
-    });
+    return data;
   } catch (error) {
-    return `Error fetching scores: ${error}`;
+    return `Error creating Cooment: ${error}`;
   }
-  return storeValue.slice(7);
 };
 
-export { addComment, getcommentData };
+const getCommentData = async (country) => {
+  try {
+    const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/kM38kn2JqCtpujHZtAbZ/comments?item_id=${country}`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return `Error creating Cooment: ${error}`;
+  }
+};
+
+
+export  { addComment, getCommentData, createComment };

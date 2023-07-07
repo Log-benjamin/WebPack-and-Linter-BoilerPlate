@@ -10,6 +10,7 @@ const getCountry = (country, Name) => {
     const timeZ = country.timezones[0];
     const popultion = country.population.toLocaleString();
 
+
     return `
       <div class="pop-Container">
             <i class="fa-solid fa-circle-xmark fa-2xl" id="remove"></i>
@@ -32,8 +33,10 @@ const getCountry = (country, Name) => {
             <div class="commentLike-Pop">
 
               <div class="commentContainer">
-                  <h2>Comments (<span class="comment-count"></span>)</h2>
+                  <h2>Comments (<span class="comment-count">0</span>)</h2>
+                  <div class="allComments">
 
+                  </div>
               </div> 
                 
                 <div class="form-Container">
@@ -65,7 +68,10 @@ const searchandFind = async (value) => {
   const Name = value.toLowerCase();
   await fetch(baseURL)
     .then((response) => response.json())
-    .then((data) => displayCountries(data, Name));
+    .then((data) => {
+      displayCountries(data, Name);
+      
+    });
 };
 
 export default searchandFind;
