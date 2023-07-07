@@ -1,11 +1,11 @@
-import { involvmentApi, involvementApiKey } from './getApiData.js';
+import { involvmentApiLikes } from './getApiData.js';
 
 const addLike = async (countryName) => {
   try {
-    await fetch(`${involvmentApi}apps/${involvementApiKey}/likes`, {
+    await fetch(involvmentApiLikes, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
       },
       body: JSON.stringify({
         item_id: countryName,
@@ -18,20 +18,18 @@ const addLike = async (countryName) => {
 };
 
 const getLikeData = async (countryName) => {
-  let storeValue = 0;
   try {
-    const response = await fetch(`${involvmentApi}apps/${involvementApiKey}/likes`);
-    const data = await response.json();
-
-    data.forEach((value) => {
-      if (countryName === value.item_id) {
-        storeValue = value.likes;
-      }
+    const response = await fetch(involvmentApiLikes, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
     });
+    const data = await response.json();
+      return data;
   } catch (error) {
-    return `Error fetching scores: ${error}`;
+    return [];
   }
-  return storeValue.slice(7);
 };
 
-export { addLike, getLikeData };
+export  { addLike, getLikeData };

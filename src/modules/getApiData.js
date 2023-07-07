@@ -1,5 +1,5 @@
 const baseURL = 'https://restcountries.com/v3.1/all';
-const involvmentApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
-const involvementApiKey = 'vaUjrjm1SfSLzppPGOuv';
+const involvmentApiLikes = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/kM38kn2JqCtpujHZtAbZ/likes`;
+const involvmentApiComments = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/kM38kn2JqCtpujHZtAbZ/comments`;
 
-export { baseURL, involvmentApi, involvementApiKey };
+export { baseURL, involvmentApiLikes,involvmentApiComments };
